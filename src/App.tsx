@@ -3,13 +3,21 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./app/store";
 import ReservationCard from "./components/ReservationCard";
 import {useState} from "react";
+import {addReservation} from "./features/reservationSlice";
 
 function App() {
-
-    const [reservationNameInput, setReservationInput] = useState("");
+    const dispatch = useDispatch()
+    const [reservationNameInput, setReservationInput] = useState("")
     const reservations = useSelector((state: RootState) => state.reservations.value)
     // console.log(reservations)
     const reservationDataFormatted = reservations.map(r => <ReservationCard name={r}/>)
+
+    const handleReservations = (): void => {
+        if (reservationNameInput) {
+            dispatch(addReservation(reservationNameInput))
+            setReservationInput("")
+        }
+    }
 
     return (
         <div className="App">
@@ -26,7 +34,7 @@ function App() {
                             onChange={(e) => setReservationInput(e.target.value)}
                             value={reservationNameInput}
                         />
-                        <button >Add</button>
+                        <button onClick={() => handleReservations()}>Add</button>
                     </div>
                 </div>
                 <div className="customer-food-container">
