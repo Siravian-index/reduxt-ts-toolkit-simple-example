@@ -4,6 +4,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 export type userType = {
     name: string
     id: string
+    order: string[]
 }
 
 interface IReservationState {

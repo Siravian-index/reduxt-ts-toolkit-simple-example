@@ -3,20 +3,23 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./app/store";
 import ReservationCard from "./components/ReservationCard";
 import {useState} from "react";
-import {addReservation} from "./features/reservationSlice";
+import {addReservation, userType} from "./features/reservationSlice";
 import {nanoid} from "nanoid";
+import CustomerOrder from "./components/CustomerOrder";
 
 function App() {
     const dispatch = useDispatch()
     const [reservationNameInput, setReservationInput] = useState("")
     //with useSelector we pick the slice of state we want to work with
     const reservations = useSelector((state: RootState) => state.reservations.value)
-    // console.log(reservations)
+    const newCustomers = useSelector((state: RootState) => state.customers.value)
+    //mapping to generate JSX markup
     const reservationDataFormatted = reservations.map((user) => <ReservationCard user={user} key={user.id}/>)
+    const customersDataFormatted = newCustomers.map((user) => <CustomerOrder user={user} />)
 
     const handleReservations = () => {
         if (reservationNameInput) {
-            const newUser = {name: reservationNameInput, id: nanoid()}
+            const newUser: userType = {name: reservationNameInput, id: nanoid(), order: []}
             dispatch(addReservation(newUser))
             setReservationInput("")
         }
@@ -41,16 +44,7 @@ function App() {
                     </div>
                 </div>
                 <div className="customer-food-container">
-                    <div className="customer-food-card-container">
-                        <p>Selena Gomez</p>
-                        <div className="customer-foods-container">
-                            <div className="customer-food"></div>
-                            <div className="customer-food-input-container">
-                                <input/>
-                                <button>Add</button>
-                            </div>
-                        </div>
-                    </div>
+                    {customersDataFormatted}
                 </div>
             </div>
         </div>
