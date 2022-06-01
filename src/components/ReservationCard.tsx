@@ -10,12 +10,11 @@ interface IReservationCard {
 
 const ReservationCard: React.FC<IReservationCard> = ({user}) => {
     const dispatch = useDispatch()
-    const removeCardByIndex = () => {
+    const moveUserToRightPanel = () => {
         dispatch(removeReservation(user.id))
-    //    dispatch action to add user to right panel
         dispatch(addCustomer(user))
     }
-    return <div onClick={() => removeCardByIndex()} className="reservation-card-container">{user.name}</div>
+    return <div onClick={moveUserToRightPanel} className="reservation-card-container">{user.name}</div>
 }
 
 export default ReservationCard

@@ -15,7 +15,7 @@ function App() {
     const newCustomers = useSelector((state: RootState) => state.customers.value)
     //mapping to generate JSX markup
     const reservationDataFormatted = reservations.map((user) => <ReservationCard user={user} key={user.id}/>)
-    const customersDataFormatted = newCustomers.map((user) => <CustomerOrder user={user} />)
+    const customersDataFormatted = newCustomers.map((user) => <CustomerOrder user={user} key={user.id}/>)
 
     const handleReservations = () => {
         if (reservationNameInput) {
