@@ -16,13 +16,16 @@ export const reservationSlice = createSlice({
     reducers: {
         addReservation: (state, action: PayloadAction<string>) => {
             state.value.push(action.payload)
+        },
+        removeReservation: (state, action: PayloadAction<number>) => {
+            state.value.splice(action.payload, 1)
         }
     }
 })
 
 //action creators
 //Here we export the actions defined in the createSlice reducer property
-export const {addReservation} = reservationSlice.actions
+export const {addReservation, removeReservation} = reservationSlice.actions
 
 
 //Here we export the reducer contained inside the  reservationSlice

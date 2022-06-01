@@ -8,11 +8,12 @@ import {addReservation} from "./features/reservationSlice";
 function App() {
     const dispatch = useDispatch()
     const [reservationNameInput, setReservationInput] = useState("")
+    //with useSelector we pick the slice of state we want to work with
     const reservations = useSelector((state: RootState) => state.reservations.value)
     // console.log(reservations)
-    const reservationDataFormatted = reservations.map(r => <ReservationCard name={r}/>)
+    const reservationDataFormatted = reservations.map((r, i) => <ReservationCard name={r} index={i}/>)
 
-    const handleReservations = (): void => {
+    const handleReservations = () => {
         if (reservationNameInput) {
             dispatch(addReservation(reservationNameInput))
             setReservationInput("")
