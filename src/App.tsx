@@ -4,6 +4,7 @@ import {RootState} from "./app/store";
 import ReservationCard from "./components/ReservationCard";
 import {useState} from "react";
 import {addReservation} from "./features/reservationSlice";
+import {nanoid} from "nanoid";
 
 function App() {
     const dispatch = useDispatch()
@@ -11,11 +12,12 @@ function App() {
     //with useSelector we pick the slice of state we want to work with
     const reservations = useSelector((state: RootState) => state.reservations.value)
     // console.log(reservations)
-    const reservationDataFormatted = reservations.map((r, i) => <ReservationCard name={r} index={i}/>)
+    const reservationDataFormatted = reservations.map((user) => <ReservationCard user={user} key={user.id}/>)
 
     const handleReservations = () => {
         if (reservationNameInput) {
-            dispatch(addReservation(reservationNameInput))
+            const newUser = {name: reservationNameInput, id: nanoid()}
+            dispatch(addReservation(newUser))
             setReservationInput("")
         }
     }

@@ -1,12 +1,17 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
+export type userType = {
+    name: string
+    id: string
+}
+
 interface IReservationState {
-    value: string[]
+    value: userType[]
 }
 
 const initialState: IReservationState = {
-    value: ["David", "Carlos"]
+    value: []
 }
 
 //Slice
@@ -14,11 +19,11 @@ export const reservationSlice = createSlice({
     name: 'reservation',
     initialState,
     reducers: {
-        addReservation: (state, action: PayloadAction<string>) => {
+        addReservation: (state, action: PayloadAction<userType>) => {
             state.value.push(action.payload)
         },
-        removeReservation: (state, action: PayloadAction<number>) => {
-            state.value.splice(action.payload, 1)
+        removeReservation: (state, action: PayloadAction<string>) => {
+            state.value = state.value.filter((user) => user.id !== action.payload)
         }
     }
 })

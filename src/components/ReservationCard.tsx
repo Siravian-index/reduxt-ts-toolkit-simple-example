@@ -1,19 +1,18 @@
 import * as React from "react";
 import {useDispatch} from "react-redux";
-import {removeReservation} from "../features/reservationSlice";
+import {removeReservation, userType} from "../features/reservationSlice";
 
 
 interface IReservationCard {
-    name: string
-    index: number
+    user: userType
 }
 
-const ReservationCard: React.FC<IReservationCard> = ({name, index}) => {
+const ReservationCard: React.FC<IReservationCard> = ({user}) => {
     const dispatch = useDispatch()
     const removeCardByIndex = () => {
-        dispatch(removeReservation(index))
+        dispatch(removeReservation(user.id))
     }
-    return <div onClick={() => removeCardByIndex()} className="reservation-card-container">{name}</div>
+    return <div onClick={() => removeCardByIndex()} className="reservation-card-container">{user.name}</div>
 }
 
 export default ReservationCard
