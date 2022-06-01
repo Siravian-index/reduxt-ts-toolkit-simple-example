@@ -6,7 +6,7 @@ interface IReservationState {
 }
 
 const initialState: IReservationState = {
-    value: []
+    value: ["David", "Carlos"]
 }
 
 //Slice

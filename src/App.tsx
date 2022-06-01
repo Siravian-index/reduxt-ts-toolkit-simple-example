@@ -1,36 +1,49 @@
 import './App.css'
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "./app/store";
+import ReservationCard from "./components/ReservationCard";
+import {useState} from "react";
 
 function App() {
-  return (
-      <div className="App">
-        <div className="container">
-          <div className="reservation-container">
-            <div>
-              <h5 className="reservation-header">Reservations</h5>
-              <div className="reservation-cards-container">
-                <div className="reservation-card-container">Laith Harb</div>
-              </div>
-            </div>
-            <div className="reservation-input-container">
-              <input />
-              <button>Add</button>
-            </div>
-          </div>
-          <div className="customer-food-container">
-            <div className="customer-food-card-container">
-              <p>Selena Gomez</p>
-              <div className="customer-foods-container">
-                <div className="customer-food"></div>
-                <div className="customer-food-input-container">
-                  <input />
-                  <button>Add</button>
+
+    const [reservationNameInput, setReservationInput] = useState("");
+    const reservations = useSelector((state: RootState) => state.reservations.value)
+    // console.log(reservations)
+    const reservationDataFormatted = reservations.map(r => <ReservationCard name={r}/>)
+
+    return (
+        <div className="App">
+            <div className="container">
+                <div className="reservation-container">
+                    <div>
+                        <h5 className="reservation-header">Reservations</h5>
+                        <div className="reservation-cards-container">
+                            {reservationDataFormatted}
+                        </div>
+                    </div>
+                    <div className="reservation-input-container">
+                        <input
+                            onChange={(e) => setReservationInput(e.target.value)}
+                            value={reservationNameInput}
+                        />
+                        <button >Add</button>
+                    </div>
                 </div>
-              </div>
+                <div className="customer-food-container">
+                    <div className="customer-food-card-container">
+                        <p>Selena Gomez</p>
+                        <div className="customer-foods-container">
+                            <div className="customer-food"></div>
+                            <div className="customer-food-input-container">
+                                <input/>
+                                <button>Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-  );
+    );
 }
 
 export default App
